@@ -46,7 +46,7 @@ pipeline{
                 script{
                     def plan = readFile 'terraform/tfplan.txt'
                     input message: "Do you want to apply the plan?",
-                    parameters: [text(name: Plan , description: 'please review the plam' , defaultValue: plan)]
+                    parameters: [text(name: 'Plan' , description: 'please review the plam' , defaultValue: plan)]
                 }
                 }
             }
