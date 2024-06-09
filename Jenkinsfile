@@ -31,9 +31,9 @@ pipeline{
         }
         stage("plan"){
             steps{
-                sh 'pwd;cd terraform/module ; terraform init'
-                sh 'pwd;cd terraform/module ; terraform plan -out tfplan'
-                sh 'pwd;cd terraform/module ; terraform show -no-color tfplan > tfplan.txt'
+                sh 'pwd;cd terraforme ; terraform init'
+                sh 'pwd;cd terraform ; terraform plan -out tfplan'
+                sh 'pwd;cd terraform ; terraform show -no-color tfplan > tfplan.txt'
                 }
         }
         stage("Approve"){
@@ -44,7 +44,7 @@ pipeline{
             }
             steps{
                 script{
-                    def plan = readFile 'terraform/module/tfplan.txt'
+                    def plan = readFile 'terraform/tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: Plan , description: 'please review the plam' , defaultValue: plan)]
                 }
@@ -52,7 +52,7 @@ pipeline{
             }
         stage("apply"){
             steps{
-                sh 'pwd;cd terraform/module ; terraform apply -input=false tfplan'
+                sh 'pwd;cd terraform ; terraform apply -input=false tfplan'
                 }
         }    
         
